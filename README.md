@@ -120,7 +120,8 @@ python "$S/scripts/replay_case.py" ./case-all --all
 ├── agents/openai.yaml        # 技能元数据
 ├── references/               # 命令、重绘、验收与案例说明
 ├── scripts/                  # 绘图、导出、审计与案例复跑工具
-└── assets/                   # 案例源包
+├── assets/                   # 案例源包
+└── LICENSE                   # 许可证
 ```
 
 ## 使用边界
@@ -129,3 +130,7 @@ python "$S/scripts/replay_case.py" ./case-all --all
 - 结果图、显微图与定量热图应保留证据属性；没有原始数据时，不应生成替代实验结果。
 - 公式结构计数、文字提取和像素差异不能单独证明语义或视觉正确；请结合原图逐页复核。
 - 可编辑与全矢量要求需要按实际输出逐页验证；局部插画的转换可能丢失细节。
+
+## 许可证
+
+本项目代码及文档使用 [MIT License](LICENSE)。案例包中的原始供稿图及其他第三方素材可能受各自权利约束，使用前请确认授权。
