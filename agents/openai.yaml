@@ -1,0 +1,4 @@
+interface:
+  display_name: "Img-to-PPT-skill"
+  short_description: "将参考图重绘为原生可编辑 PowerPoint，逐图核验论文矢量 PDF"
+  default_prompt: "使用 $img-to-ppt-skill 把我提供的参考图逐图重绘为可编辑 PowerPoint，校验公式、连接线和论文尺寸下的矢量 PDF。"
