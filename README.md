@@ -15,7 +15,6 @@
 | 可编辑图形 | 创建形状、分组、折线与圆角箭头；支持将局部插画转为可编辑区域 |
 | 论文导出 | 从 PPTX 母版导出 PDF，按页输出并按指定坐标裁切 |
 | 质量检查 | 检查对象结构、公式区域、PDF 导出和真实编辑前后的可见变化 |
-| 案例复跑 | 附带八幅扩散方法图的源素材、绘图代码及历史检查记录 |
 
 实际可编辑性、字体、视觉一致性和矢量效果取决于图形内容、字体和渲染环境；自动检查不能替代逐图目检。
 
@@ -32,7 +31,7 @@ cd Img-to-PPT-skill
 
 ### 2. 准备环境
 
-项目示例使用 Python 3.12、LibreOffice Impress 和 Math。需要安装可用的数学字体及普通文本字体；案例文档说明了当时的字体替代方案。
+本工具使用 Python 3.12、LibreOffice Impress 和 Math 测试。需要安装可用的数学字体及普通文本字体。
 
 在独立工作目录中运行：
 
@@ -56,21 +55,6 @@ python -m pip install -r "$S/scripts/requirements.txt"
 
 建议一并提供原始高清图片或 PDF、目标印刷尺寸、字体要求，以及是否允许更改原图内容。无法辨认的标签和关系应列为待确认项。
 
-## 最小工作示例
-
-以下命令生成一张示例图，导出 PDF 并运行结构审计。它们需要上面安装的依赖、LibreOffice 和可用的数学字体。
-
-```bash
-printf '%s\n' '["y_w"]' > terms.json
-python "$S/scripts/calibrate_math.py" terms.json metrics.json
-python "$S/scripts/example_figure.py" example --metrics metrics.json
-python "$S/scripts/render.py" example/example.pptx example/example.pdf
-python "$S/scripts/audit.py" example/example.pptx example/example.pdf \
-  --expect-math > example/audit.json
-```
-
-输出包括可编辑的 `example/example.pptx`、导出的 `example/example.pdf` 和结构审计报告。公式区域检查、真实编辑探针及原图对照的完整命令见 [命令与最小工作例](references/commands.md)。
-
 ## 工作流程
 
 1. **读图与登记**：确定页面顺序、文字、公式、模块、连接方向和目标印刷尺寸。
@@ -87,30 +71,14 @@ python "$S/scripts/audit.py" example/example.pptx example/example.pdf \
 | 脚本 | 用途 |
 | --- | --- |
 | `scripts/calibrate_math.py` | 测量项目公式的字体尺寸，辅助布局 |
-| `scripts/example_figure.py` | 构建含文字、箭头、公式和分组的示例 |
 | `scripts/render.py` | 通过 LibreOffice 将 PPTX 导出为 PDF |
 | `scripts/audit.py` | 审计文稿结构及 PDF 产物 |
 | `scripts/formula_check.py` | 按给定区域检查导出公式字形比例 |
 | `scripts/probe.py` | 修改副本并对比导出结果，验证实际编辑效果 |
 | `scripts/compare.py` | 生成参考图与导出 PDF 的并排校样 |
 | `scripts/export_pages.py` | 将 PDF 按页导出，可选择裁切 |
-| `scripts/replay_case.py` | 在独立目录复跑扩散方法图案例 |
 
 脚本参数、检查条件和适用边界以 [命令参考](references/commands.md) 为准。
-
-## 八图案例
-
-[案例说明](references/diffusion-case.md) 描述了八幅扩散方法图的源材料、逐页代码、字体映射和历史验收结果。案例包位于 [`assets/diffusion-redraw-source.zip`](assets/diffusion-redraw-source.zip)，包含原始供稿图、生成素材和检查记录。
-
-安装案例附加依赖后，可在空目录或尚不存在的目录中复跑：
-
-```bash
-python -m pip install -r "$S/scripts/requirements-case.txt"
-python "$S/scripts/replay_case.py" ./case-07 --figure 7
-python "$S/scripts/replay_case.py" ./case-all --all
-```
-
-案例历史记录包含 239 个可编辑文本框和 67 个原生公式；不同字体或导出环境可能产生不同结果。案例中部分图有明确标注的内容校正，自己的项目应以供稿和作者要求为准。原始供稿和第三方素材的再使用须确认相应权利。
 
 ## 仓库结构
 
@@ -118,9 +86,8 @@ python "$S/scripts/replay_case.py" ./case-all --all
 .
 ├── SKILL.md                  # Agent 技能入口
 ├── agents/openai.yaml        # 技能元数据
-├── references/               # 命令、重绘、验收与案例说明
-├── scripts/                  # 绘图、导出、审计与案例复跑工具
-├── assets/                   # 案例源包
+├── references/               # 命令、重绘和验收说明
+├── scripts/                  # 绘图、导出与审计工具
 └── LICENSE                   # 许可证
 ```
 
@@ -133,4 +100,4 @@ python "$S/scripts/replay_case.py" ./case-all --all
 
 ## 许可证
 
-本项目代码及文档使用 [MIT License](LICENSE)。案例包中的原始供稿图及其他第三方素材可能受各自权利约束，使用前请确认授权。
+本项目代码及文档使用 [MIT License](LICENSE)。第三方素材可能受各自权利约束，使用前请确认授权。
